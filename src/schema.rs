@@ -16,7 +16,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMArea"]
-    tm_area (uuid) {
+    area (uuid) {
         uuid -> Nullable<Text>,
         title -> Nullable<Text>,
         visible -> Nullable<Integer>,
@@ -29,7 +29,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMChecklistItem"]
-    tm_checklist_item (uuid) {
+    checklist_item (uuid) {
         uuid -> Nullable<Text>,
         #[sql_name = "userModificationDate"]
         user_modification_date -> Nullable<Float>,
@@ -49,7 +49,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMCommand"]
-    tm_command (uuid) {
+    command (uuid) {
         uuid -> Nullable<Text>,
         #[sql_name = "creationDate"]
         creation_date -> Nullable<Float>,
@@ -61,7 +61,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMContact"]
-    tm_contact (uuid) {
+    contact (uuid) {
         uuid -> Nullable<Text>,
         #[sql_name = "displayName"]
         display_name -> Nullable<Text>,
@@ -78,7 +78,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMMetaItem"]
-    tm_meta_item (uuid) {
+    meta_item (uuid) {
         uuid -> Nullable<Text>,
         value -> Nullable<Binary>,
     }
@@ -86,7 +86,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMSettings"]
-    tm_settings (uuid) {
+    settings (uuid) {
         uuid -> Nullable<Text>,
         #[sql_name = "log_interval"]
         logInterval -> Nullable<Integer>,
@@ -102,7 +102,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMTag"]
-    tm_tag (uuid) {
+    tag (uuid) {
         uuid -> Nullable<Text>,
         title -> Nullable<Text>,
         shortcut -> Nullable<Text>,
@@ -116,7 +116,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMTask"]
-    tm_task (uuid) {
+    task (uuid) {
         uuid -> Nullable<Text>,
         #[sql_name = "leavesTombstone"]
         leaves_tombstone -> Nullable<Integer>,
@@ -190,7 +190,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMTombstone"]
-    tm_tombstone (uuid) {
+    tombstone (uuid) {
         uuid -> Nullable<Text>,
         #[sql_name = "deletionDate"]
         deletion_date -> Nullable<Float>,
@@ -219,7 +219,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMAreaTag"]
-    tm_area_tag (tags) {
+    area_tag (tags) {
         areas -> Text,
         tags -> Text,
     }
@@ -227,7 +227,7 @@ diesel::table! {
 
 diesel::table! {
     #[sql_name="TMTaskTag"]
-    tm_task_tag (tags) {
+    task_tag (tags) {
         tasks -> Text,
         tags -> Text,
     }
@@ -237,17 +237,17 @@ diesel::table! {
 diesel::allow_tables_to_appear_in_same_query!(
     bs_syncrony_metadata,
     meta,
-    tm_area,
-    tm_checklist_item,
-    tm_command,
-    tm_contact,
-    tm_meta_item,
-    tm_settings,
-    tm_tag,
-    tm_task,
-    tm_tombstone,
+    area,
+    checklist_item,
+    command,
+    contact,
+    meta_item,
+    settings,
+    tag,
+    task,
+    tombstone,
     things_touch_extension_command_store_commands,
     things_touch_extension_command_store_meta,
-    tm_area_tag,
-    tm_task_tag,
+    area_tag,
+    task_tag,
 );

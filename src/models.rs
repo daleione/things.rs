@@ -2,9 +2,9 @@ use std::fmt;
 use diesel::prelude::*;
 
 #[derive(Queryable, Selectable, Debug)]
-#[diesel(table_name = crate::schema::tm_area)]
+#[diesel(table_name = crate::schema::area)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct TMArea {
+pub struct Area {
     pub uuid: Option<String>,
     pub title: Option<String>,
     pub visible: Option<i32>,
@@ -13,7 +13,7 @@ pub struct TMArea {
     pub experimental: Option<Vec<u8>>,
 }
 
-impl fmt::Display for TMArea{
+impl fmt::Display for Area{
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some(title) = &self.title {
             write!(f, "{}", title)
@@ -24,9 +24,9 @@ impl fmt::Display for TMArea{
 }
 
 #[derive(Queryable, Selectable, Debug)]
-#[diesel(table_name = crate::schema::tm_tag)]
+#[diesel(table_name = crate::schema::tag)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-pub struct TMTag {
+pub struct Tag {
     pub uuid: Option<String>,
     pub title: Option<String>,
     pub shortcut: Option<String>,
@@ -36,7 +36,7 @@ pub struct TMTag {
     pub experimental: Option<Vec<u8>>,
 }
 
-impl fmt::Display for TMTag{
+impl fmt::Display for Tag{
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some(title) = &self.title {
             write!(f, "{}", title)
