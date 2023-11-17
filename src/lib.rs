@@ -6,8 +6,8 @@ use std::env;
 pub mod models;
 pub mod schema;
 
-const DEFAULT_FILEPATH: &'static str = "~/Library/Group Containers/JLMPQHK86H.com.culturedcode.ThingsMac/ThingsData-5YIWW/Things Database.thingsdatabase";
-const ENVIRONMENT_VARIABLE_WITH_FILEPATH: &'static str = "THINGSDB";
+const DEFAULT_FILEPATH: &str = "~/Library/Group Containers/JLMPQHK86H.com.culturedcode.ThingsMac/ThingsData-5YIWW/Things Database.thingsdatabase";
+const ENVIRONMENT_VARIABLE_WITH_FILEPATH: &str = "THINGSDB";
 
 pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
