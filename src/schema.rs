@@ -162,7 +162,7 @@ diesel::table! {
         #[sql_name = "untrashedLeafActionsCount"]
         untrashed_leaf_actions_count -> Nullable<Integer>,
         #[sql_name = "openUntrashedLeafActionsCount"]
-        open_untrashed_leafActions_count -> Nullable<Integer>,
+        open_untrashed_leaf_actions_count -> Nullable<Integer>,
         #[sql_name = "checklistItemsCount"]
         checklist_items_count -> Nullable<Integer>,
         #[sql_name = "openChecklistItemsCount"]
