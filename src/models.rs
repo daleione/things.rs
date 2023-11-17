@@ -1,5 +1,5 @@
-use std::fmt;
 use diesel::prelude::*;
+use std::fmt;
 
 #[derive(Queryable, Selectable, Debug)]
 #[diesel(table_name = crate::schema::area)]
@@ -13,7 +13,7 @@ pub struct Area {
     pub experimental: Option<Vec<u8>>,
 }
 
-impl fmt::Display for Area{
+impl fmt::Display for Area {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some(title) = &self.title {
             write!(f, "{}", title)
@@ -36,7 +36,7 @@ pub struct Tag {
     pub experimental: Option<Vec<u8>>,
 }
 
-impl fmt::Display for Tag{
+impl fmt::Display for Tag {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some(title) = &self.title {
             write!(f, "{}", title)
