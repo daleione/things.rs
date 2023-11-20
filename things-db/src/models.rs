@@ -1,3 +1,4 @@
+use rocket::serde::Serialize;
 use diesel::prelude::*;
 use std::fmt;
 
@@ -27,7 +28,8 @@ impl fmt::Display for Area {
     }
 }
 
-#[derive(Queryable, Selectable, Debug)]
+#[derive(Serialize, Queryable, Selectable, Debug)]
+#[serde(crate = "rocket::serde")]
 #[diesel(table_name = crate::schema::tag)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Tag {
