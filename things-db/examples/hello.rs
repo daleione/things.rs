@@ -1,11 +1,11 @@
 use diesel::prelude::*;
-use things_rs::models::*;
-use things_rs::schema::area::dsl as area_dsl;
-use things_rs::schema::tag::dsl as tag_dsl;
-use things_rs::schema::task::dsl as task_dsl;
+use things_db::models::*;
+use things_db::schema::area::dsl as area_dsl;
+use things_db::schema::tag::dsl as tag_dsl;
+use things_db::schema::task::dsl as task_dsl;
 
 fn main() {
-    let connection = &mut things_rs::establish_connection();
+    let connection = &mut things_db::establish_connection();
     let areas: Vec<Area> = area_dsl::area.load(connection).expect("Error loading area");
 
     println!("Displaying all {} area:", areas.len());
