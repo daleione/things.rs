@@ -1,6 +1,9 @@
 use rocket::serde::Serialize;
 use diesel::prelude::*;
+use diesel::deserialize::{self, FromSql};
+use chrono;
 use std::fmt;
+use diesel::sqlite::Sqlite;
 
 fn print_option<T: ToString>(opt: &Option<T>) -> String {
     if let Some(title) = opt {
@@ -12,7 +15,7 @@ fn print_option<T: ToString>(opt: &Option<T>) -> String {
 
 #[derive(Queryable, Selectable, Debug)]
 #[diesel(table_name = crate::schema::area)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(check_for_backend(Sqlite))]
 pub struct Area {
     pub uuid: Option<String>,
     pub title: Option<String>,
@@ -31,7 +34,7 @@ impl fmt::Display for Area {
 #[derive(Serialize, Queryable, Selectable, Debug)]
 #[serde(crate = "rocket::serde")]
 #[diesel(table_name = crate::schema::tag)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(check_for_backend(Sqlite))]
 pub struct Tag {
     pub uuid: Option<String>,
     pub title: Option<String>,
@@ -48,13 +51,18 @@ impl fmt::Display for Tag {
     }
 }
 
-#[derive(Queryable, Selectable, Debug)]
+#[derive(Serialize, Debug)]
+#[serde(crate = "rocket::serde")]
+pub struct Datetime(chrono::NaiveDateTime);
+
+#[derive(Serialize, Queryable, Selectable, Debug)]
+#[serde(crate = "rocket::serde")]
 #[diesel(table_name = crate::schema::task)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+#[diesel(check_for_backend(Sqlite))]
 pub struct Task {
     pub uuid: Option<String>,
     pub leaves_tombstone: Option<i32>,
-    pub creation_date: Option<f32>,
+    pub creation_date: Option<Datetime>,
     pub user_modification_date: Option<f32>,
     pub type_: Option<i32>,
     pub status: Option<i32>,
@@ -98,5 +106,14 @@ pub struct Task {
 impl fmt::Display for Task {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", print_option(&self.title))
+    }
+}
+
+impl FromSql<diesel::sql_types::Float, Sqlite> for Datetime {
+    fn from_sql(bytes: <Sqlite as diesel::backend::Backend>::RawValue<'_> ) -> deserialize::Result<Self> {
+        let float_value = <f32 as FromSql<diesel::sql_types::Float, Sqlite>>::from_sql(bytes)?;
+        let seconds = float_value as i64;
+        let nanoseconds = (float_value.fract() * 1_000_000_000.0) as u32;
+        Ok(Datetime(chrono::NaiveDateTime::from_timestamp(seconds, nanoseconds)))
     }
 }

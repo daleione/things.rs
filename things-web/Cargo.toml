@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 things-db = { path = "../things-db" }
-rocket = { version = "0.5.0", features = [ "json"] }
+rocket = { version = "0.5.0", features = [ "json" ] }
 diesel = { version = "2.1.0", features = ["sqlite", "64-column-tables"] }
+rocket_dyn_templates = { version="0.1.0", features = ["handlebars", "tera"]}

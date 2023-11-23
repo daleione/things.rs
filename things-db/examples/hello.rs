@@ -19,9 +19,9 @@ fn main() {
         println!("* {}", t);
     }
 
-    let tasks: Vec<Task> = task_dsl::task.limit(10).load(connection).expect("Error loading task");
+    let tasks: Vec<Task> = task_dsl::task.limit(3).load(connection).expect("Error loading task");
     println!("Displaying all {} tasks:", tasks.len());
     for t in tasks {
-        println!("* {}", t);
+        println!("* {:?}", t);
     }
 }
